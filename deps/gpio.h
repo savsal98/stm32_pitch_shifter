@@ -5,4 +5,4 @@
 
 GPIO_InitTypeDef GPIO_InitStructure;
 
-void GPIO_INIT();
+void gpio_init();

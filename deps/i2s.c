@@ -1,13 +1,13 @@
 #include "i2s.h"
 
-uint16_t dac[4] = {0};
-uint16_t adc[4] = {0};
+uint16_t dac_buff[8] = {0};
+uint16_t adc_buff[8] = {0};
 
-void I2S_INIT()
+void i2s_init()
 {
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
 	/* Общая для чтения и зап */
-	DMA_InitStructure.DMA_BufferSize = 4;
+	DMA_InitStructure.DMA_BufferSize = 8;
 	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
 	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
 	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
@@ -17,7 +17,7 @@ void I2S_INIT()
 
 	/* DMA I2S запись */
 	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&SPI2->DR;
-	DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)dac;
+	DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)dac_buff;
 	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
 	DMA_InitStructure.DMA_Priority = DMA_Priority_Low;
 	DMA_Init(DMA1_Channel5, &DMA_InitStructure);
@@ -30,7 +30,7 @@ void I2S_INIT()
 
 	/* DMA I2S чтение */
 	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&I2S2ext->DR;
-	DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)adc;
+	DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)adc_buff;
 	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
 	DMA_InitStructure.DMA_Priority = DMA_Priority_High;
 	DMA_Init(DMA1_Channel4, &DMA_InitStructure);

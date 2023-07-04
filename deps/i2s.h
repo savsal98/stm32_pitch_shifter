@@ -5,11 +5,11 @@
 #include <stm32f30x_rcc.h>
 
 
-extern uint16_t dac[4];
-extern uint16_t adc[4];
+extern uint16_t dac_buff[8];
+extern uint16_t adc_buff[8];
 
 I2S_InitTypeDef I2S_InitStructure;
 NVIC_InitTypeDef NVIC_InitStructure;
 DMA_InitTypeDef DMA_InitStructure;
 
-void I2S_INIT();
+void i2s_init();

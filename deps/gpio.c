@@ -1,6 +1,6 @@
 #include "gpio.h"
 
-void GPIO_INIT()
+void gpio_init()
 {
 	// GPIOB 12 - I2S2_WS, 13 - I2S2_CK, 14 - I2S2ext_SD, 15 - I2S2_SD
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOB|

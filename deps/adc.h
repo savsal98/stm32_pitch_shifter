@@ -8,5 +8,5 @@ ADC_InitTypeDef ADC_InitStructure;
 ADC_CommonInitTypeDef ADC_CommonInitStructure;
 DMA_InitTypeDef DMA_InitStructure;
 
-void ADC_INIT();
-unsigned int READ_ADC();
+void adc_init();
+unsigned int read_adc();

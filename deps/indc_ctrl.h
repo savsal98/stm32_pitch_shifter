@@ -14,12 +14,12 @@ EXTI_InitTypeDef EXTI_InitStructure;
 //обработки кнопки
 extern uint8_t cnt;
 extern uint8_t flag_button;
-extern float Shift;
+extern float shift;
 
 //номер цирфы на индикаторе
 extern uint8_t num_count;
 extern int8_t pitch;
 
-void SHOW_NUM(uint8_t num);
-void TIMER_INIT();
-void EXT_INIT();
+void show_num(uint8_t num);
+void timer_init();
+void ext_init();

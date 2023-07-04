@@ -1,7 +1,7 @@
 #include <adc.h>
 
 uint32_t adc_result = 0;
-void ADC_INIT()
+void adc_init()
 {
 	/* Enable the DMA AHB clocks */
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
@@ -45,7 +45,7 @@ void ADC_INIT()
 	ADC_Cmd(ADC1,ENABLE);
 }
 
-unsigned int READ_ADC()
+unsigned int read_adc()
 {
 	ADC_RegularChannelConfig(ADC1, ADC_Channel_1, 1, ADC_SampleTime_7Cycles5);
 	ADC_StartConversion(ADC1);

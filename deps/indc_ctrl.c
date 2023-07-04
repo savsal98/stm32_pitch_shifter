@@ -1,19 +1,18 @@
 #include <indc_ctrl.h>
 
-//обработки кнопки
-uint8_t cnt = 0;
-uint8_t flag_button = 0;
 
-//номер цирфы на индикаторе
-uint8_t num_count = 0;
-int8_t pitch = 0;
+uint8_t cnt = 0;///button debounce counter
+uint8_t flag_button = 0; ///button interrupt flag
+uint8_t num_count = 0; ///digit number in indicator
+int8_t pitch = 0; ///pitch value
+float shift = 1.0;//pitch frequency relation
 
-float Shift = 1.0;
 
-void SHOW_NUM(uint8_t num)
+
+void show_num(uint8_t num)
 {
 	/*
-	 * Катоды слева направо
+	 * cathods
 	 *  PA5 - первая цифра
 	 *  PA4 - вторая цифра
 	 *  PA3 - третья цирфа
@@ -64,7 +63,7 @@ void SHOW_NUM(uint8_t num)
 	}
 }
 
-void TIMER_INIT()
+void timer_init()
 {
 	NVIC_InitStructure.NVIC_IRQChannel = TIM7_IRQn;
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;
@@ -74,24 +73,26 @@ void TIMER_INIT()
 
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM7,ENABLE);
 	TIM_InitStructure.TIM_CounterMode = TIM_CounterMode_Up;
-	TIM_InitStructure.TIM_Period = 50;
+	TIM_InitStructure.TIM_Period = 100;
 	TIM_InitStructure.TIM_Prescaler = 3600;
 	TIM_TimeBaseInit(TIM7, &TIM_InitStructure);
 	TIM_ITConfig(TIM7, TIM_IT_Update, ENABLE);
 	TIM_Cmd(TIM7, ENABLE);
 }
-void TIM7_IRQHandler(void){
+void TIM7_IRQHandler(void)
+{
 	//pitch absolute value calculation
 	int8_t abs_pitch = pitch;
 	uint8_t temp = abs_pitch >> 7;
 	abs_pitch ^= temp;
 	abs_pitch += temp & 1;
-	if (abs_pitch < 10){
+	if (abs_pitch < 10)
+	{
 		if(num_count == 0)
 		{
 			GPIOA->ODR |= 0x38;
 			GPIOA->ODR &= ~ (1<<3);
-			SHOW_NUM((abs_pitch%10));
+			show_num((abs_pitch%10));
 			num_count++;
 		}
 		else if(num_count == 1)
@@ -114,19 +115,20 @@ void TIM7_IRQHandler(void){
 		}
 	}
 
-	if (abs_pitch >= 10){
+	if (abs_pitch >= 10)
+	{
 			if(num_count == 0)
 			{
 				GPIOA->ODR |= 0x38;
 				GPIOA->ODR &= ~ (1<<3);
-				SHOW_NUM((abs_pitch%10));
+				show_num((abs_pitch%10));
 				num_count++;
 			}
 			else if(num_count == 1)
 			{
 				GPIOA->ODR |= 0x38;
 				GPIOA->ODR &= ~ (1<<4);
-				SHOW_NUM(((abs_pitch/10)%10));
+				show_num(((abs_pitch/10)%10));
 				num_count++;
 			}
 			else if(num_count == 2)
@@ -142,7 +144,8 @@ void TIM7_IRQHandler(void){
 			}
 		}
 	//button counter handling
-	if(flag_button == 1 && cnt <= 10){
+	if(flag_button == 1 && cnt <= 10)
+	{
 		cnt++;
 	}
 	else if (flag_button == 1 && cnt > 10)
@@ -152,7 +155,7 @@ void TIM7_IRQHandler(void){
 			if (pitch <= 11)
 			{
 			  pitch++;
-			  Shift = powf(2, ((float)pitch/12.0));
+			  shift = powf(2, ((float)pitch/12.0));
 			}
 		}
 		if (GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_6) != RESET)
@@ -161,7 +164,7 @@ void TIM7_IRQHandler(void){
 			{
 			  pitch--;
 			  EXTI_ClearITPendingBit(EXTI_Line7);
-			  Shift = powf(2, ((float)pitch/12.0));
+			  shift = powf(2, ((float)pitch/12.0));
 			}
 		}
 		//button status check
@@ -172,7 +175,7 @@ void TIM7_IRQHandler(void){
 }
 
 
-void EXT_INIT()
+void ext_init()
 {
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource7);
