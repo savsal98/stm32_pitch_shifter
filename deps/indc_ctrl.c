@@ -1,11 +1,12 @@
 #include <indc_ctrl.h>
+#include <emul_eeprom.h>
 
 uint8_t cnt = 0; ///counter for button debounce
 uint8_t flag_button = 0; ///flag for button debounce it will be setting if button is pushed
 uint8_t digit_cnt = 0; ///position of digit in indicator
 
 float shift = 1.0;///pitch frequency relation
-int8_t pitch = 0; ///pitch value
+int8_t pitch; ///pitch value
 
 
 void timer_init()
@@ -142,6 +143,7 @@ void button_handling()
 			if (pitch <= 11)
 			{
 			  pitch++;
+			  flash_write(0, (uint32_t)pitch);
 			  shift = powf(2, ((float)pitch/12.0));
 			}
 		}
@@ -150,6 +152,7 @@ void button_handling()
 			if (pitch >= -11)
 			{
 			  pitch--;
+			  flash_write(0, (uint32_t)pitch);
 			  EXTI_ClearITPendingBit(EXTI_Line7);
 			  shift = powf(2, ((float)pitch/12.0));
 			}

@@ -4,6 +4,7 @@
 #include <indc_ctrl.h>
 #include <signal_prcs.h>
 #include <clock.h>
+#include <emul_eeprom.h>
 
 hpf_data FilterStruct;
 
@@ -18,6 +19,8 @@ int main(void)
 	i2s_init();
 	timer_init();
 	pot_adc_value = read_adc();
+	pitch = (int8_t)flash_read(0);
+	shift = powf(2, ((float)pitch/12.0));
 
 	// high pass filter init, parameter is a cut off frequency
 	FilterStruct.alpha = filter_init(500.0);

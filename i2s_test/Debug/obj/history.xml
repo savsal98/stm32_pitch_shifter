@@ -22,20 +22,23 @@
       <target file="stm32f30x_gpio.o" lastModified="189201e2cea">
          <source file="..\..\..\cmsis_lib\source\stm32f30x_gpio.c" lastModified="188e78ef196"/>
       </target>
+      <target file="emul_eeprom.o" lastModified="1892b6d14cc">
+         <source file="..\..\..\deps\emul_eeprom.c" lastModified="1892b6d11e3"/>
+      </target>
       <target file="stm32f30x_exti.o" lastModified="189201e3030">
          <source file="..\..\..\cmsis_lib\source\stm32f30x_exti.c" lastModified="188f94cec09"/>
       </target>
-      <target file="adc.o" lastModified="1892aab57dd">
-         <source file="..\..\..\deps\adc.c" lastModified="1892aab4e64"/>
-      </target>
-      <target file="indc_ctrl.o" lastModified="1892a82cf8e">
-         <source file="..\..\..\deps\indc_ctrl.c" lastModified="1892a82cc69"/>
+      <target file="indc_ctrl.o" lastModified="1892b7514fa">
+         <source file="..\..\..\deps\indc_ctrl.c" lastModified="1892b7511b7"/>
       </target>
       <target file="stm32f30x_misc.o" lastModified="189201e32c0">
          <source file="..\..\..\cmsis_lib\source\stm32f30x_misc.c" lastModified="188e78f3842"/>
       </target>
       <target file="stm32f30x_adc.o" lastModified="189201e2c58">
          <source file="..\..\..\cmsis_lib\source\stm32f30x_adc.c" lastModified="188e78efbba"/>
+      </target>
+      <target file="adc.o" lastModified="1892aab57dd">
+         <source file="..\..\..\deps\adc.c" lastModified="1892aab4e64"/>
       </target>
       <target file="stm32f30x_tim.o" lastModified="189201e3400">
          <source file="..\..\..\cmsis_lib\source\stm32f30x_tim.c" lastModified="188e78f3213"/>
@@ -49,11 +52,14 @@
       <target file="startup_stm32f30x.o" lastModified="189201e3444">
          <source file="..\..\..\cmsis_boot\startup\startup_stm32f30x.S" lastModified="188e78eeb0b"/>
       </target>
+      <target file="stm32f30x_flash.o" lastModified="1892b11dd2e">
+         <source file="..\..\..\cmsis_lib\source\stm32f30x_flash.c" lastModified="1892b0c2fdb"/>
+      </target>
       <target file="signal_prcs.o" lastModified="1892a810d41">
          <source file="..\..\..\deps\signal_prcs.c" lastModified="18920d2303b"/>
       </target>
-      <target file="main.o" lastModified="1892aab5775">
-         <source file="..\..\..\main.c" lastModified="1892aab4f2c"/>
+      <target file="main.o" lastModified="1892b76ee44">
+         <source file="..\..\..\main.c" lastModified="1892b76dfb3"/>
       </target>
    </processor>
 </history>
