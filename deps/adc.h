@@ -2,7 +2,7 @@
 #include <stm32f30x_dma.h>
 #include <stm32f30x_rcc.h>
 
-extern uint32_t adc_result;
+extern uint32_t pot_adc_value;
 
 ADC_InitTypeDef ADC_InitStructure;
 ADC_CommonInitTypeDef ADC_CommonInitStructure;

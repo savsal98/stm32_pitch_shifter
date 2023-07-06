@@ -11,15 +11,16 @@ NVIC_InitTypeDef NVIC_InitStructure;
 TIM_TimeBaseInitTypeDef TIM_InitStructure;
 EXTI_InitTypeDef EXTI_InitStructure;
 
-//обработки кнопки
-extern uint8_t cnt;
-extern uint8_t flag_button;
-extern float shift;
+extern uint8_t cnt; ///counter for button debounce
+extern uint8_t flag_button; ///flag for button debounce it will be setting if button is pushed
+extern float shift; ///pitch frequency relation
 
-//номер цирфы на индикаторе
-extern uint8_t num_count;
-extern int8_t pitch;
+extern uint8_t digit_cnt; ///position of digit in indicator
+extern int8_t pitch; ///pitch value
 
-void show_num(uint8_t num);
+void show_num(uint8_t num, uint16_t digit_position);
 void timer_init();
 void ext_init();
+void button_handling();
+void indicator_handling();
+

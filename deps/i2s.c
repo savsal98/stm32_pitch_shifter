@@ -3,6 +3,7 @@
 uint16_t dac_buff[8] = {0};
 uint16_t adc_buff[8] = {0};
 
+
 void i2s_init()
 {
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);

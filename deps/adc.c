@@ -1,13 +1,13 @@
 #include <adc.h>
 
-uint32_t adc_result = 0;
+uint32_t pot_adc_value = 0;
 void adc_init()
 {
 	/* Enable the DMA AHB clocks */
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
 	// DMA Äëÿ ÀÖÏ
 	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&ADC1->DR;
-	DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)&adc_result;
+	DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)&pot_adc_value;
 	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
 	DMA_InitStructure.DMA_Priority = DMA_Priority_Low;
 	DMA_InitStructure.DMA_BufferSize = DMA_PeripheralDataSize_HalfWord;
